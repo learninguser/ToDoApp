@@ -4,8 +4,10 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const tasksRoute = require("./routes/tasks");
 
+const MONGO_URI = process.env.MONGO_URI || "mongodb://mongo_db:27017/ToDoAppDb"
+
 mongoose
-  .connect("mongob://mongo-db:27017/ToDoAppDb")
+  .connect(MONGO_URI)
   .then(() => console.log("Connected"))
   .catch(() => console.log("Not connected"));
 
