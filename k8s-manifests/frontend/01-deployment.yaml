@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: todo
+  labels: # these labels are deployment labels
+    app: frontend
+    project: mern-todo
+    tier: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # these labels are used to find the pods
+      app: frontend
+      project: mern-todo
+      tier: web
+  template:
+    metadata:
+      labels: # these labels are pod labels
+        app: frontend
+        project: mern-todo
+        tier: web
+    spec:
+      containers:
+      - name: frontend
+        image: localhost:30001/todoapp-frontend:latest
+        imagePullPolicy: Always
