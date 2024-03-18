@@ -23,5 +23,5 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: localhost:30001/todoapp-frontend:latest
+        image: learninguser/todoapp-frontend:latest
         imagePullPolicy: Always
