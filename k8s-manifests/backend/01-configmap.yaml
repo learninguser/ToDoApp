@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: backend
-  namespace: todo
-data:
-  MONGO_URI: "mongodb://mongodb:27017/ToDoAppDb"

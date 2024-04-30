@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: todo
+  labels: # these labels are deployment labels
+    app: backend
+    project: mern-todo
+    tier: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # these labels are used to find the pods
+      app: backend
+      project: mern-todo
+      tier: app
+  template:
+    metadata:
+      labels: # these labels are pod labels
+        app: backend
+        project: mern-todo
+        tier: app
+    spec:
+      containers:
+      - name: backend
+        image: learninguser/todoapp-backend:latest
+        imagePullPolicy: Always
+        env:
+          - name: MONGO_ATLAS_CLUSTER
+            valueFrom:
+              configMapKeyRef:
+                name: mongodb-config
+                key: MONGO_ATLAS_CLUSTER
+          - name: MONGO_ATLAS_DBNAME
+            value: "ToDoAppDb"   
+          - name: MONGO_ATLAS_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-credentials
+                key: MONGO_ATLAS_USERNAME
+          - name: MONGO_ATLAS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-credentials
+                key: MONGO_ATLAS_PASSWORD         
