@@ -9,10 +9,11 @@ const password = process.env.MONGO_ATLAS_PASSWORD;
 const cluster = process.env.MONGO_ATLAS_CLUSTER;
 const dbname = process.env.MONGO_ATLAS_DBNAME;
 
-const MONGO_URI = `mongodb+srv://${username}:${password}@${cluster}/${dbname}?retryWrites=true&w=majority`;
+const MONGO_URI = `mongodb+srv://${username}:${password}@${cluster}/${dbname}?retryWrites=true&w=majority&appName=Cluster0`;
+console.log(MONGO_URI)
 
 mongoose
-  .connect(MONGO_URI)
+  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected"))
   .catch(() => console.log("Not connected"));
 
