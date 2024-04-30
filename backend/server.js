@@ -4,7 +4,12 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const tasksRoute = require("./routes/tasks");
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://mongo_db:27017/ToDoAppDb"
+const username = process.env.MONGO_ATLAS_USERNAME;
+const password = process.env.MONGO_ATLAS_PASSWORD;
+const cluster = process.env.MONGO_ATLAS_CLUSTER;
+const dbname = process.env.MONGO_ATLAS_DBNAME;
+
+const MONGO_URI = `mongodb+srv://${username}:${password}@${cluster}/${dbname}?retryWrites=true&w=majority`;
 
 mongoose
   .connect(MONGO_URI)
