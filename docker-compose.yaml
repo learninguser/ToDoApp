@@ -2,20 +2,12 @@ version: "3"
 
 services:
 
-  database:
-    image: mongo
-    container_name: mongodb
-    networks:
-      - mern-networks
-  
   backend:
     build: ./backend
     container_name: node-api
     restart: always
-    environment:
-      MONGO_URI: "mongodb://mongodb:27017/ToDoAppDb"
-    depends_on:
-      - database
+    env_file:
+      - mongodb.env
     networks:
       - mern-networks
   
