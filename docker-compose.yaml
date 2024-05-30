@@ -1,6 +1,10 @@
-version: "3"
-
 services:
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    networks:
+      - mern-networks
 
   backend:
     build: ./backend
@@ -11,13 +15,24 @@ services:
     networks:
       - mern-networks
   
+   # React Frontend Service
   frontend:
     build: ./frontend
-    container_name: react-app
-    ports:
-      - "80:3000"
+    container_name: web
     depends_on:
       - backend
+    networks:
+      - mern-networks
+
+  # NGINX Service as reverse proxy
+  nginx:
+    image: nginx:latest
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - frontend
     networks:
       - mern-networks
 

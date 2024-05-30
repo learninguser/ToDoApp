@@ -4,16 +4,10 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const tasksRoute = require("./routes/tasks");
 
-const username = process.env.MONGO_ATLAS_USERNAME;
-const password = process.env.MONGO_ATLAS_PASSWORD;
-const cluster = process.env.MONGO_ATLAS_CLUSTER;
-const dbname = process.env.MONGO_ATLAS_DBNAME;
-
-const MONGO_URI = `mongodb+srv://${username}:${password}@${cluster}/${dbname}?retryWrites=true&w=majority&appName=Cluster0`;
-console.log(MONGO_URI)
+const MONGO_URI = process.env.MONGO_URI || "mongodb://mongodb:27017/ToDoAppDb"
 
 mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGO_URI)
   .then(() => console.log("Connected"))
   .catch(() => console.log("Not connected"));
 
